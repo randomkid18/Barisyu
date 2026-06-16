@@ -983,7 +983,7 @@ body {
     border-top: 1px solid var(--medium-gray);
 }
 
-/* Payment Grid */
+/* Payment Grid - PNG Logo Images */
 .payment-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1021,34 +1021,23 @@ body {
     transform: scale(0.97);
 }
 
-.payment-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-full);
+.payment-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
+    overflow: hidden;
+    background: var(--white);
+    flex-shrink: 0;
 }
 
-.qris-icon {
-    background: var(--primary-green);
-}
-
-.gopay-icon {
-    background: #00AED9;
-}
-
-.ovo-icon {
-    background: #4C2F8B;
-}
-
-.dana-icon {
-    background: #118EEA;
-}
-
-.bank-icon {
-    background: var(--text-secondary);
+.payment-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .payment-card span {
