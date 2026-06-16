@@ -35,7 +35,7 @@
 
     <!-- VIEW 2: MAIN DASHBOARD -->
     <div id="main-dashboard" class="main-dashboard hidden">
-        
+
         <!-- Header -->
         <header class="app-header">
             <div class="header-top">
@@ -210,13 +210,8 @@
                     <label class="payment-option">
                         <input type="radio" name="payment" value="QRIS" checked>
                         <div class="payment-card">
-                            <div class="payment-icon qris-icon">
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="3" width="7" height="7"/>
-                                    <rect x="14" y="3" width="7" height="7"/>
-                                    <rect x="3" y="14" width="7" height="7"/>
-                                    <rect x="14" y="14" width="7" height="7"/>
-                                </svg>
+                            <div class="payment-icon-wrap">
+                                <img src="img/payment-qris.png" alt="QRIS" class="payment-logo-img">
                             </div>
                             <span>QRIS</span>
                         </div>
@@ -224,13 +219,8 @@
                     <label class="payment-option">
                         <input type="radio" name="payment" value="GoPay">
                         <div class="payment-card">
-                            <div class="payment-icon gopay-icon">
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                                    <line x1="9" y1="9" x2="9.01" y2="9"/>
-                                    <line x1="15" y1="9" x2="15.01" y2="9"/>
-                                </svg>
+                            <div class="payment-icon-wrap">
+                                <img src="img/payment-gopay.png" alt="GoPay" class="payment-logo-img">
                             </div>
                             <span>GoPay</span>
                         </div>
@@ -238,11 +228,8 @@
                     <label class="payment-option">
                         <input type="radio" name="payment" value="OVO">
                         <div class="payment-card">
-                            <div class="payment-icon ovo-icon">
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <circle cx="12" cy="12" r="4"/>
-                                </svg>
+                            <div class="payment-icon-wrap">
+                                <img src="img/payment-ovo.png" alt="OVO" class="payment-logo-img">
                             </div>
                             <span>OVO</span>
                         </div>
@@ -250,12 +237,8 @@
                     <label class="payment-option">
                         <input type="radio" name="payment" value="DANA">
                         <div class="payment-card">
-                            <div class="payment-icon dana-icon">
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                                    <polyline points="2 17 12 22 22 17"/>
-                                    <polyline points="2 12 12 17 22 12"/>
-                                </svg>
+                            <div class="payment-icon-wrap">
+                                <img src="img/payment-dana.png" alt="DANA" class="payment-logo-img">
                             </div>
                             <span>DANA</span>
                         </div>
@@ -263,13 +246,8 @@
                     <label class="payment-option">
                         <input type="radio" name="payment" value="Bank Transfer">
                         <div class="payment-card">
-                            <div class="payment-icon bank-icon">
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="4" y1="10" x2="20" y2="10"/>
-                                    <line x1="4" y1="14" x2="20" y2="14"/>
-                                    <path d="M4 10v10h16V10"/>
-                                    <path d="M12 2L2 10h20L12 2z"/>
-                                </svg>
+                            <div class="payment-icon-wrap">
+                                <img src="img/payment-bank-transfer.png" alt="Bank Transfer" class="payment-logo-img">
                             </div>
                             <span>Bank Transfer</span>
                         </div>
@@ -327,10 +305,10 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="15 18 9 12 15 6"/>
                     </svg>
-                    <span>Review Order</span>
+                    <span>Change Order</span>
                 </button>
                 <button class="confirm-btn" id="proceed-order-btn">
-                    <span>Proceed to Order</span>
+                    <span>Confirm Order</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="9 18 15 12 9 6"/>
                     </svg>
