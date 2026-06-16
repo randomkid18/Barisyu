@@ -159,6 +159,13 @@
         return items;
     }
 
+    // BUG FIX 3: Zero-pad table number to 3 digits
+    function padTableNumber(raw) {
+        const num = parseInt(raw, 10);
+        if (isNaN(num)) return raw;
+        return String(num).padStart(3, '0');
+    }
+
     // ============================================
     // DOM REFERENCES
     // ============================================
@@ -197,6 +204,25 @@
         postCheckoutModal: document.getElementById('post-checkout-modal'),
         orderAgainBtn: document.getElementById('order-again-btn')
     };
+
+    // ============================================
+    // BUG FIX 1: CENTRALIZED REACTIVE RENDER ENGINE
+    // All state mutations trigger a single unified render cycle
+    // that updates EVERY dependent UI surface simultaneously.
+    // ============================================
+    function renderAll() {
+        // 1. Update menu card quantities (main dashboard)
+        updateMenuQuantities();
+
+        // 2. Update floating cart bar
+        updateCartUI();
+
+        // 3. Update cart modal items (if visible)
+        renderCartItems();
+
+        // 4. Update mini cart on checkout (if visible)
+        renderMiniCart();
+    }
 
     // ============================================
     // RENDER FUNCTIONS
@@ -396,7 +422,10 @@
         const { total } = getCartTotal();
         const now = new Date();
         
-        DOM.reviewTable.textContent = state.checkoutData.tableNumber || '-';
+        // BUG FIX 3: Apply zero-padding to table number display
+        const paddedTable = padTableNumber(state.checkoutData.tableNumber);
+        
+        DOM.reviewTable.textContent = paddedTable || '-';
         DOM.reviewName.textContent = state.checkoutData.customerName || '-';
         DOM.reviewPayment.textContent = state.checkoutData.paymentMethod;
         DOM.reviewDate.textContent = now.toLocaleString('id-ID', {
@@ -432,8 +461,8 @@
             state.cart[itemId] = 0;
         }
         state.cart[itemId]++;
-        updateCartUI();
-        updateMenuQuantities();
+        // BUG FIX 1: Centralized render - all UI surfaces update in one call
+        renderAll();
     }
 
     function removeFromCart(itemId) {
@@ -443,16 +472,14 @@
                 delete state.cart[itemId];
             }
         }
-        updateCartUI();
-        updateMenuQuantities();
-        renderCartItems();
+        // BUG FIX 1: Centralized render - all UI surfaces update in one call
+        renderAll();
     }
 
     function clearCart() {
         state.cart = {};
-        updateCartUI();
-        updateMenuQuantities();
-        renderCartItems();
+        // BUG FIX 1: Centralized render - all UI surfaces update in one call
+        renderAll();
     }
 
     // ============================================
@@ -508,21 +535,25 @@
     }
 
     // ============================================
-    // WHATSAPP COMPILER
+    // BUG FIX 3: SIMPLIFIED TEXT-BASED WHATSAPP COMPILER
+    // Zero-padded table numbers, clean line-by-line flat text
     // ============================================
     function compileWhatsAppMessage() {
         const items = getCartItems();
         const { total } = getCartTotal();
         const now = new Date();
         
+        // Zero-pad table number to 3 digits
+        const paddedTable = padTableNumber(state.checkoutData.tableNumber);
+        
         let message = '*BARISYU - NEW ORDER*' + '\\n';
-        message += '===================' + '\\n\\n';
+        message += '========================' + '\\n\\n';
         message += '*Date:* ' + now.toLocaleString('id-ID') + '\\n';
-        message += '*Table:* ' + state.checkoutData.tableNumber + '\\n';
+        message += '*Table:* ' + paddedTable + '\\n';
         message += '*Customer:* ' + state.checkoutData.customerName + '\\n';
         message += '*Payment:* ' + state.checkoutData.paymentMethod + '\\n\\n';
         message += '*ORDER ITEMS:*' + '\\n';
-        message += '-------------------' + '\\n';
+        message += '------------------------' + '\\n';
         
         items.forEach((item, index) => {
             message += (index + 1) + '. ' + item.name + '\\n';
@@ -530,7 +561,7 @@
             message += '   Sub: ' + formatRupiah(item.price * item.quantity) + '\\n';
         });
         
-        message += '-------------------' + '\\n';
+        message += '------------------------' + '\\n';
         message += '*TOTAL: ' + formatRupiah(total) + '*\\n\\n';
         message += 'Thank you for ordering with Barisyu!';
         
@@ -636,6 +667,7 @@
         });
 
         // Cart Item Actions (Event Delegation)
+        // BUG FIX 1: Cart modal +/- buttons now trigger centralized renderAll()
         DOM.cartItemsList.addEventListener('click', function(e) {
             const btn = e.target.closest('.cart-item-qty-btn');
             if (!btn) return;
@@ -666,6 +698,8 @@
 
         // Form Input Tracking
         DOM.tableNumber.addEventListener('input', function() {
+            // Only allow numeric input
+            this.value = this.value.replace(/[^0-9]/g, '');
             state.checkoutData.tableNumber = this.value;
         });
 
@@ -703,7 +737,7 @@
             openModal(DOM.doubleCheckModal);
         });
 
-        // Review Order (go back)
+        // Review Order (go back) - renamed to "Change Order"
         DOM.reviewOrderBtn.addEventListener('click', function() {
             closeModal(DOM.doubleCheckModal);
         });
