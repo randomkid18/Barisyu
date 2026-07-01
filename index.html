@@ -33,13 +33,29 @@
         </div>
     </div>
 
+    <!-- [NEW FEATURE] SYNC OVERLAY -->
+    <div id="sync-overlay" class="sync-overlay hidden">
+        <div class="sync-content">
+            <div class="sync-shimmer-wrapper">
+                <div class="sync-shimmer"></div>
+                <div class="sync-shimmer"></div>
+                <div class="sync-shimmer"></div>
+            </div>
+            <p class="sync-text">Sedang menyinkronkan menu &amp; promo terbaru, mohon tunggu sebentar...</p>
+            <div class="sync-dots">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
     <!-- VIEW 2: MAIN DASHBOARD -->
     <div id="main-dashboard" class="main-dashboard hidden">
 
         <!-- Header -->
         <header class="app-header">
             <div class="header-top">
-                <div class="brand-small">
+                <!-- [PRESERVED] Brand title with secret trigger capability -->
+                <div class="brand-small" id="brand-title-trigger">
                     <svg class="logo-small" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2"/>
                         <path d="M12 17 L20 10 L28 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -97,9 +113,7 @@
         </nav>
 
         <!-- Menu Items Container -->
-        <main class="menu-container" id="menu-container">
-            <!-- Menu items will be rendered by JavaScript -->
-        </main>
+        <main class="menu-container" id="menu-container"></main>
 
         <!-- Spacer for floating cart -->
         <div class="cart-spacer"></div>
@@ -143,9 +157,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="cart-items-list" id="cart-items-list">
-                    <!-- Cart items rendered by JS -->
-                </div>
+                <div class="cart-items-list" id="cart-items-list"></div>
                 <div class="cart-summary" id="cart-summary">
                     <div class="summary-row">
                         <span>Subtotal</span>
@@ -181,7 +193,6 @@
         </div>
 
         <div class="checkout-body">
-            <!-- Customer Details -->
             <section class="checkout-section">
                 <h3>Customer Details</h3>
                 <div class="form-group">
@@ -192,66 +203,24 @@
                     <label for="customer-name">Your Name</label>
                     <input type="text" id="customer-name" placeholder="Enter your name">
                 </div>
+                <!-- [NEW FEATURE] Order Notes -->
+                <div class="form-group">
+                    <label for="order-notes">Order Notes</label>
+                    <textarea id="order-notes" rows="2" placeholder="Any special requests (e.g., less sugar, no ice...)"></textarea>
+                </div>
             </section>
 
-            <!-- Order Summary Mini -->
             <section class="checkout-section">
                 <h3>Order Summary</h3>
-                <div class="mini-cart-list" id="mini-cart-list">
-                    <!-- Rendered by JS -->
-                </div>
+                <div class="mini-cart-list" id="mini-cart-list"></div>
                 <div class="mini-cart-total" id="mini-cart-total">Rp 0</div>
             </section>
 
-            <!-- Payment Methods -->
             <section class="checkout-section">
                 <h3>Payment Method</h3>
-                <div class="payment-grid">
-                    <label class="payment-option">
-                        <input type="radio" name="payment" value="QRIS" checked>
-                        <div class="payment-card">
-                            <div class="payment-icon-wrap">
-                                <img src="img/payment-qris.png" alt="QRIS" class="payment-logo-img">
-                            </div>
-                            <span>QRIS</span>
-                        </div>
-                    </label>
-                    <label class="payment-option">
-                        <input type="radio" name="payment" value="GoPay">
-                        <div class="payment-card">
-                            <div class="payment-icon-wrap">
-                                <img src="img/payment-gopay.png" alt="GoPay" class="payment-logo-img">
-                            </div>
-                            <span>GoPay</span>
-                        </div>
-                    </label>
-                    <label class="payment-option">
-                        <input type="radio" name="payment" value="OVO">
-                        <div class="payment-card">
-                            <div class="payment-icon-wrap">
-                                <img src="img/payment-ovo.png" alt="OVO" class="payment-logo-img">
-                            </div>
-                            <span>OVO</span>
-                        </div>
-                    </label>
-                    <label class="payment-option">
-                        <input type="radio" name="payment" value="DANA">
-                        <div class="payment-card">
-                            <div class="payment-icon-wrap">
-                                <img src="img/payment-dana.png" alt="DANA" class="payment-logo-img">
-                            </div>
-                            <span>DANA</span>
-                        </div>
-                    </label>
-                    <label class="payment-option">
-                        <input type="radio" name="payment" value="Bank Transfer">
-                        <div class="payment-card">
-                            <div class="payment-icon-wrap">
-                                <img src="img/payment-bank-transfer.png" alt="Bank Transfer" class="payment-logo-img">
-                            </div>
-                            <span>Bank Transfer</span>
-                        </div>
-                    </label>
+                <!-- [MODIFIED] Dynamic payment grid rendered by JS -->
+                <div class="payment-grid" id="payment-grid">
+                    <!-- Payment options will be injected here by app.js -->
                 </div>
             </section>
         </div>
@@ -292,9 +261,7 @@
                         <span class="review-value" id="review-date">-</span>
                     </div>
                 </div>
-                <div class="review-items" id="review-items">
-                    <!-- Rendered by JS -->
-                </div>
+                <div class="review-items" id="review-items"></div>
                 <div class="review-total-row">
                     <span>Total</span>
                     <span id="review-total">Rp 0</span>
@@ -339,6 +306,285 @@
             </div>
         </div>
     </div>
+
+    <!-- SECRET ADMIN LOGIN MODAL -->
+    <div class="modal-overlay" id="secret-login-modal">
+        <div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <div class="modal-header">
+                <h2>Admin Access</h2>
+                <button class="modal-close" id="secret-login-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="admin-pin">Enter PIN</label>
+                    <input type="password" id="admin-pin" placeholder="••••••••" maxlength="20" autocomplete="off">
+                </div>
+                <p class="pin-error hidden" id="pin-error">Incorrect PIN. Access denied.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="confirm-btn" id="verify-pin-btn">
+                    <span>Unlock Dashboard</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD (KASIR) -->
+    <div id="admin-dashboard" class="admin-dashboard hidden">
+        <header class="admin-header">
+            <h1>Barisyu Backoffice</h1>
+            <button class="logout-btn" id="admin-logout">Logout</button>
+        </header>
+
+        <nav class="admin-tabs">
+            <button class="admin-tab active" data-admin-tab="menu">Menu</button>
+            <button class="admin-tab" data-admin-tab="orders">Orders</button>
+            <button class="admin-tab" data-admin-tab="payments">Payments</button>  <!-- [NEW FEATURE] -->
+        </nav>
+
+        <!-- Panel: Menu CRUD -->
+        <div class="admin-panel" id="panel-menu">
+            <div class="admin-section">
+                <h3>Add / Edit Menu</h3>
+                <form id="menu-form" class="admin-form">
+                    <input type="hidden" id="menu-edit-id">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="menu-category" class="form-input">
+                            <option value="beverages">Beverages</option>
+                            <option value="food">Food</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="menu-name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" id="menu-desc" class="form-input">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Price (Rp)</label>
+                            <input type="number" id="menu-price" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Discount (%)</label>
+                            <input type="number" id="menu-discount" class="form-input" value="0" min="0" max="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="text" id="menu-image" class="form-input" placeholder="https://...">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="menu-promo">
+                            <span>Active Promo</span>
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="secondary-btn" id="menu-reset-btn">Reset</button>
+                        <button type="submit" class="confirm-btn" id="menu-save-btn">Save Menu</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="admin-section">
+                <h3>Menu List</h3>
+                <div class="admin-table-wrap">
+                    <table class="admin-table" id="admin-menu-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel: Orders Monitor -->
+        <div class="admin-panel hidden" id="panel-orders">
+            <div class="admin-section">
+                <div class="panel-header-row">
+                    <h3>Incoming Orders</h3>
+                    <button class="refresh-btn" id="refresh-orders">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 4 23 10 17 10"/>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table" id="admin-orders-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Table</th>
+                                <th>Customer</th>
+                                <th>Total</th>
+                                <th>Pay</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- [NEW FEATURE] Panel: Payment Methods CRUD -->
+        <div class="admin-panel hidden" id="panel-payments">
+            <div class="admin-section">
+                <h3>Add / Edit Payment Method</h3>
+                <form id="payment-form" class="admin-form">
+                    <input type="hidden" id="payment-edit-id">
+                    <div class="form-group">
+                        <label>Payment Name</label>
+                        <input type="text" id="payment-name" class="form-input" placeholder="e.g. QRIS, Bank BCA" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Logo URL</label>
+                        <input type="text" id="payment-logo" class="form-input" placeholder="https://... or img/payment-qris.png">
+                    </div>
+                    <div class="form-group">
+                        <label>QR Code URL</label>
+                        <input type="text" id="payment-qr" class="form-input" placeholder="https://... or img/qris-placeholder.png">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="secondary-btn" id="payment-reset-btn">Reset</button>
+                        <button type="submit" class="confirm-btn" id="payment-save-btn">Save Payment</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="admin-section">
+                <h3>Payment Methods List</h3>
+                <div class="admin-table-wrap">
+                    <table class="admin-table" id="admin-payments-table">
+                        <thead>
+                            <tr>
+                                <th>Logo</th>
+                                <th>Name</th>
+                                <th>QR</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR & INVOICE VIEW (Post Checkout) -->
+    <div id="qr-invoice-view" class="qr-invoice-view hidden">
+        <div class="checkout-header">
+            <button class="back-btn" id="back-from-qr">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"/>
+                </svg>
+            </button>
+            <h1>Payment &amp; Receipt</h1>
+            <div class="header-spacer"></div>
+        </div>
+
+        <div class="qr-invoice-body">
+            <div class="order-success-banner">
+                <div class="success-icon" style="margin:0 auto 12px;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <h2>Order Placed!</h2>
+                <p class="order-id-display" id="qr-order-id">Order ID: -</p>
+            </div>
+
+            <section class="checkout-section qr-section">
+                <h3>Scan to Pay</h3>
+                <div class="qr-placeholder">
+                    <!-- [MODIFIED] Dynamic QR image -->
+                    <img src="" alt="Payment QR" id="payment-qr-image">
+                    <p id="payment-qr-instruction">Show this QR to the cashier or scan with your e-wallet</p>
+                </div>
+            </section>
+
+            <section class="checkout-section">
+                <h3>Upload Proof of Payment</h3>
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="proof-file" accept="image/*" class="hidden">
+                    <div class="upload-placeholder" id="upload-placeholder">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        <p>Tap to upload transfer screenshot</p>
+                    </div>
+                    <div class="upload-preview hidden" id="upload-preview">
+                        <img id="proof-preview-img" src="" alt="Preview">
+                        <button class="remove-proof-btn" id="remove-proof">Remove</button>
+                    </div>
+                </div>
+                <button class="confirm-btn" id="upload-proof-btn" style="margin-top:12px;">
+                    Submit Proof
+                </button>
+            </section>
+
+            <section class="checkout-section">
+                <h3>Your Receipt</h3>
+                <div class="receipt-preview" id="receipt-preview"></div>
+                <!-- [MODIFIED] Changed to Download Receipt Image -->
+                <button class="secondary-btn" id="download-receipt-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    <span>Download Receipt Image</span>
+                </button>
+            </section>
+        </div>
+    </div>
+
+    <!-- RECEIPT PRINT MODAL -->
+    <div class="modal-overlay" id="receipt-modal">
+        <div class="modal-sheet receipt-sheet">
+            <div class="modal-header">
+                <h2>Receipt</h2>
+                <button class="modal-close" id="receipt-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="receipt-print-area" class="receipt-print-area"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="confirm-btn" onclick="window.print()">
+                    <span>Print Now</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- [NEW FEATURE] Hidden thermal print area for cashier -->
+    <div id="thermal-print-area" class="thermal-print-area"></div>
 
     <script src="js/app.js"></script>
 </body>
