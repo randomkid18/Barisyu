@@ -72,6 +72,7 @@ body {
 
 /* ============================================
    VIEW 1: LOADING SCREEN
+   [PRESERVED] Original animation & structure
    ============================================ */
 .loading-screen {
     position: fixed;
@@ -102,14 +103,8 @@ body {
 }
 
 @keyframes loadingEntrance {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .brand-logo {
@@ -125,15 +120,9 @@ body {
 }
 
 @keyframes logoBounce {
-    0%, 100% {
-        transform: translateY(0) scale(1);
-    }
-    40% {
-        transform: translateY(-12px) scale(1.05);
-    }
-    60% {
-        transform: translateY(-6px) scale(1.02);
-    }
+    0%, 100% { transform: translateY(0) scale(1); }
+    40% { transform: translateY(-12px) scale(1.05); }
+    60% { transform: translateY(-6px) scale(1.02); }
 }
 
 .brand-name {
@@ -165,27 +154,98 @@ body {
     animation: dotPulse 1.4s ease-in-out infinite both;
 }
 
-.loading-dots span:nth-child(1) {
-    animation-delay: -0.32s;
-}
-
-.loading-dots span:nth-child(2) {
-    animation-delay: -0.16s;
-}
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
 
 @keyframes dotPulse {
-    0%, 80%, 100% {
-        transform: scale(0.6);
-        opacity: 0.4;
-    }
-    40% {
-        transform: scale(1);
-        opacity: 1;
-    }
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
 }
 
 /* ============================================
+   [NEW FEATURE] SYNC OVERLAY / SHIMMER LOADER
+   ============================================ */
+.sync-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    transition: opacity var(--transition-base);
+}
+
+.sync-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.sync-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 32px;
+    max-width: 320px;
+    text-align: center;
+}
+
+.sync-shimmer-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.sync-shimmer {
+    height: 80px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(90deg, var(--light-gray) 25%, var(--medium-gray) 50%, var(--light-gray) 75%);
+    background-size: 200% 100%;
+    animation: shimmerSlide 1.5s ease-in-out infinite;
+}
+
+.sync-shimmer:nth-child(1) { width: 100%; animation-delay: 0s; }
+.sync-shimmer:nth-child(2) { width: 85%; animation-delay: 0.2s; }
+.sync-shimmer:nth-child(3) { width: 60%; animation-delay: 0.4s; }
+
+@keyframes shimmerSlide {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.sync-text {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.sync-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.sync-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--primary-green);
+    animation: dotPulse 1.4s ease-in-out infinite both;
+}
+
+.sync-dots span:nth-child(1) { animation-delay: -0.32s; }
+.sync-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+/* ============================================
    VIEW 2: MAIN DASHBOARD
+   [PRESERVED] Original layout & components
    ============================================ */
 .main-dashboard {
     width: 100%;
@@ -229,6 +289,7 @@ body {
     font-weight: 700;
     font-size: 1.125rem;
     color: var(--text-primary);
+    cursor: default;
 }
 
 .logo-small {
@@ -255,9 +316,7 @@ body {
     margin-top: 2px;
 }
 
-.info-text {
-    flex: 1;
-}
+.info-text { flex: 1; }
 
 .info-title {
     font-weight: 600;
@@ -287,9 +346,7 @@ body {
     border-bottom: 1px solid var(--light-gray);
 }
 
-.category-tabs::-webkit-scrollbar {
-    display: none;
-}
+.category-tabs::-webkit-scrollbar { display: none; }
 
 .tab-btn {
     display: flex;
@@ -309,9 +366,7 @@ body {
     flex-shrink: 0;
 }
 
-.tab-btn:active {
-    transform: scale(0.96);
-}
+.tab-btn:active { transform: scale(0.96); }
 
 .tab-btn.active {
     background: var(--primary-green);
@@ -330,9 +385,7 @@ body {
 }
 
 /* Category Section */
-.category-section {
-    margin-bottom: 8px;
-}
+.category-section { margin-bottom: 8px; }
 
 .category-title {
     font-size: 1.125rem;
@@ -354,9 +407,7 @@ body {
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.menu-card:active {
-    transform: scale(0.98);
-}
+.menu-card:active { transform: scale(0.98); }
 
 .menu-image {
     width: 88px;
@@ -381,6 +432,19 @@ body {
     color: var(--text-primary);
     line-height: 1.3;
     margin-bottom: 4px;
+}
+
+/* NEW: Promo badge (non-destructive) */
+.promo-badge {
+    display: inline-block;
+    background: var(--accent-yellow);
+    color: var(--white);
+    font-size: 0.625rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 4px;
+    vertical-align: middle;
 }
 
 .menu-description {
@@ -452,9 +516,7 @@ body {
 }
 
 /* Cart Spacer */
-.cart-spacer {
-    height: 80px;
-}
+.cart-spacer { height: 80px; }
 
 /* Floating Cart Bar */
 .floating-cart {
@@ -556,6 +618,7 @@ body {
 
 /* ============================================
    MODAL SYSTEM
+   [PRESERVED] Original modal behavior
    ============================================ */
 .modal-overlay {
     position: fixed;
@@ -721,9 +784,7 @@ body {
     flex-shrink: 0;
 }
 
-.cart-item-qty-btn:active {
-    transform: scale(0.9);
-}
+.cart-item-qty-btn:active { transform: scale(0.9); }
 
 .cart-item-qty-btn.remove-btn {
     border-color: var(--danger);
@@ -815,6 +876,7 @@ body {
 
 /* ============================================
    VIEW 3: CHECKOUT
+   [PRESERVED] Original checkout layout
    ============================================ */
 .checkout-view {
     width: 100%;
@@ -905,13 +967,9 @@ body {
     margin-bottom: 14px;
 }
 
-.form-group {
-    margin-bottom: 14px;
-}
+.form-group { margin-bottom: 14px; }
 
-.form-group:last-child {
-    margin-bottom: 0;
-}
+.form-group:last-child { margin-bottom: 0; }
 
 .form-group label {
     display: block;
@@ -921,7 +979,8 @@ body {
     margin-bottom: 6px;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea {
     width: 100%;
     padding: 12px 14px;
     border: 1.5px solid var(--medium-gray);
@@ -932,16 +991,17 @@ body {
     background: var(--white);
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
     outline: none;
+    resize: none;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group textarea:focus {
     border-color: var(--primary-green);
     box-shadow: 0 0 0 3px var(--primary-green-light);
 }
 
-.form-group input::placeholder {
-    color: var(--text-muted);
-}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--text-muted); }
 
 /* Mini Cart List */
 .mini-cart-list {
@@ -958,10 +1018,7 @@ body {
     font-size: 0.875rem;
 }
 
-.mini-cart-item-name {
-    color: var(--text-primary);
-    font-weight: 500;
-}
+.mini-cart-item-name { color: var(--text-primary); font-weight: 500; }
 
 .mini-cart-item-qty {
     color: var(--text-muted);
@@ -983,20 +1040,16 @@ body {
     border-top: 1px solid var(--medium-gray);
 }
 
-/* Payment Grid - PNG Logo Images */
+/* Payment Grid - Dynamic */
 .payment-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
 
-.payment-option {
-    cursor: pointer;
-}
+.payment-option { cursor: pointer; }
 
-.payment-option input {
-    display: none;
-}
+.payment-option input { display: none; }
 
 .payment-card {
     display: flex;
@@ -1017,9 +1070,7 @@ body {
     box-shadow: var(--shadow-sm);
 }
 
-.payment-option:active .payment-card {
-    transform: scale(0.97);
-}
+.payment-option:active .payment-card { transform: scale(0.97); }
 
 .payment-icon-wrap {
     width: 48px;
@@ -1085,9 +1136,7 @@ body {
 }
 
 /* Double Check Modal */
-.double-check-sheet {
-    max-height: 90vh;
-}
+.double-check-sheet { max-height: 90vh; }
 
 .double-check-footer {
     display: flex;
@@ -1138,10 +1187,7 @@ body {
     border-bottom: 1px solid var(--light-gray);
 }
 
-.review-item-name {
-    color: var(--text-primary);
-    font-weight: 500;
-}
+.review-item-name { color: var(--text-primary); font-weight: 500; }
 
 .review-item-qty {
     color: var(--text-muted);
@@ -1202,68 +1248,670 @@ body {
     max-width: 280px;
 }
 
-/* Utility Classes */
-.hidden {
-    display: none !important;
+/* ============================================
+   NEW: SECRET LOGIN & ADMIN DASHBOARD
+   ============================================ */
+.pin-error {
+    color: var(--danger);
+    font-size: 0.875rem;
+    text-align: center;
+    margin-top: 8px;
+    font-weight: 500;
 }
 
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-    width: 4px;
+/* Admin Dashboard */
+.admin-dashboard {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--off-white);
+    opacity: 1;
+    transition: opacity var(--transition-slow);
 }
 
-::-webkit-scrollbar-track {
-    background: transparent;
+.admin-dashboard.hidden {
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: var(--white);
+    border-bottom: 1px solid var(--light-gray);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.admin-header h1 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.logout-btn {
+    padding: 6px 14px;
+    background: var(--danger-light);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+    border-radius: var(--radius-full);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.admin-tabs {
+    display: flex;
+    gap: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.admin-tab {
+    flex: 1;
+    padding: 12px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-family: inherit;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.admin-tab.active {
+    color: var(--primary-green);
+    border-bottom-color: var(--primary-green);
+}
+
+.admin-panel {
+    padding: 16px;
+    padding-bottom: 100px;
+}
+
+.admin-section {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--light-gray);
+}
+
+.admin-section h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.admin-form .form-group { margin-bottom: 12px; }
+
+.admin-form label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.form-input,
+.admin-form select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid var(--medium-gray);
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    background: var(--white);
+    outline: none;
+}
+
+.form-input:focus,
+.admin-form select:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px var(--primary-green-light);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary-green);
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.form-actions .secondary-btn,
+.form-actions .confirm-btn {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Admin Tables */
+.admin-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+}
+
+.admin-table thead th {
+    text-align: left;
+    padding: 10px 8px;
+    background: var(--primary-green-light);
+    color: var(--primary-green-dark);
+    font-weight: 600;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+}
+
+.admin-table tbody td {
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--light-gray);
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.admin-table tbody tr:last-child td { border-bottom: none; }
+
+.admin-table .menu-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    background: var(--light-gray);
+}
+
+.admin-table .action-btns {
+    display: flex;
+    gap: 6px;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+}
+
+.action-btn.edit {
+    background: var(--primary-green-light);
+    color: var(--primary-green);
+}
+
+.action-btn.delete {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.status-badge.belum-dibayar {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.status-badge.lunas {
+    background: #D1FAE5;
+    color: #065F46;
+}
+
+.status-badge.diproses {
+    background: #DBEAFE;
+    color: #1E40AF;
+}
+
+.status-badge.selesai {
+    background: #D1FAE5;
+    color: #065F46;
+}
+
+.status-badge.dibatalkan {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+/* Status Select in table */
+.status-select {
+    padding: 6px 8px;
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--medium-gray);
+    font-size: 0.8125rem;
+    font-family: inherit;
+    background: var(--white);
+    color: var(--text-primary);
+}
+
+/* Panel header row */
+.panel-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.refresh-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    border: none;
+    background: var(--primary-green-light);
+    color: var(--primary-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.refresh-btn.spinning svg {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   NEW: QR & INVOICE VIEW
+   ============================================ */
+.qr-invoice-view {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--off-white);
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transition: opacity var(--transition-slow);
+}
+
+.qr-invoice-view.hidden {
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.qr-invoice-body {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 100px;
+}
+
+.order-success-banner {
+    text-align: center;
+    padding: 24px 16px;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--light-gray);
+}
+
+.order-success-banner h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.order-id-display {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-family: monospace;
+    margin-top: 4px;
+}
+
+.qr-section { text-align: center; }
+
+.qr-placeholder {
+    padding: 20px;
+    background: var(--off-white);
+    border-radius: var(--radius-md);
+    border: 2px dashed var(--medium-gray);
+}
+
+.qr-placeholder img {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin-bottom: 12px;
+}
+
+.qr-placeholder p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Upload Area */
+.upload-area {
+    position: relative;
+    border: 2px dashed var(--medium-gray);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    text-align: center;
+    background: var(--off-white);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.upload-area:active {
+    border-color: var(--primary-green);
+    background: var(--primary-green-light);
+}
+
+.upload-placeholder svg {
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.upload-placeholder p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.upload-preview img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin-bottom: 10px;
+}
+
+.remove-proof-btn {
+    padding: 6px 14px;
+    background: var(--danger-light);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+    border-radius: var(--radius-full);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* Receipt Preview */
+.receipt-preview {
+    background: var(--off-white);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.receipt-preview .receipt-header {
+    text-align: center;
+    border-bottom: 1px dashed var(--medium-gray);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+
+.receipt-preview .receipt-header h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.receipt-preview .receipt-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 0;
+}
+
+.receipt-preview .receipt-total {
+    border-top: 1px dashed var(--medium-gray);
+    margin-top: 8px;
+    padding-top: 8px;
+    font-weight: 700;
+    font-size: 0.9375rem;
+}
+
+/* Receipt Print Modal */
+.receipt-sheet { max-height: 90vh; }
+
+.receipt-print-area {
+    background: #fff;
+    padding: 24px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.receipt-print-area .print-header {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.receipt-print-area .print-logo {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.receipt-print-area .print-meta {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.receipt-print-area .print-divider {
+    border: none;
+    border-top: 1px dashed #333;
+    margin: 8px 0;
+}
+
+.receipt-print-area .print-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 0;
+}
+
+.receipt-print-area .print-total {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 2px solid #333;
+}
+
+.receipt-print-area .print-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.75rem;
+    color: #666;
+}
+
+/* ============================================
+   [NEW FEATURE] THERMAL RECEIPT PRINT STYLES
+   ============================================ */
+.thermal-print-area {
+    display: none;
+}
+
+@media print {
+    body * { visibility: hidden; }
+    
+    /* Standard receipt modal print */
+    #receipt-modal,
+    #receipt-modal.active,
+    #receipt-print-area,
+    #receipt-print-area * {
+        visibility: visible;
+    }
+    #receipt-print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        max-width: 80mm;
+        margin: 0 auto;
+        background: #fff;
+        box-shadow: none;
+        padding: 8px;
+    }
+    .modal-overlay,
+    .modal-sheet,
+    .modal-header,
+    .modal-footer {
+        display: none !important;
+    }
+    #receipt-modal {
+        display: block !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white;
+    }
+    
+    /* [NEW FEATURE] Thermal receipt for cashier */
+    .thermal-print-area,
+    .thermal-print-area * {
+        visibility: visible !important;
+    }
+    .thermal-print-area {
+        display: block !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 58mm;
+        margin: 0;
+        padding: 4mm;
+        background: white;
+        font-family: 'Courier New', monospace;
+        font-size: 10pt;
+        line-height: 1.4;
+        color: #000;
+    }
+    .thermal-print-area .t-header {
+        font-size: 14pt;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 2px;
+    }
+    .thermal-print-area .t-sub {
+        font-size: 8pt;
+        text-align: center;
+        margin-bottom: 4px;
+    }
+    .thermal-print-area .t-divider {
+        border: none;
+        border-top: 1px dashed #000;
+        margin: 4px 0;
+    }
+    .thermal-print-area .t-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 9pt;
+        padding: 1px 0;
+    }
+    .thermal-print-area .t-items {
+        font-size: 9pt;
+        line-height: 1.5;
+        margin: 4px 0;
+    }
+    .thermal-print-area .t-total {
+        font-weight: bold;
+        font-size: 11pt;
+    }
+    .thermal-print-area .t-footer {
+        text-align: center;
+        font-size: 8pt;
+        margin-top: 8px;
+    }
+}
+
+/* ============================================
+   UTILITY & ACCESSIBILITY
+   [PRESERVED] Original utilities
+   ============================================ */
+.hidden { display: none !important; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
     background: var(--medium-gray);
     border-radius: var(--radius-full);
 }
 
-/* Selection Color */
 ::selection {
     background: var(--primary-green-light);
     color: var(--primary-green-dark);
 }
 
-/* Focus Visible for Accessibility */
 :focus-visible {
     outline: 2px solid var(--primary-green);
     outline-offset: 2px;
 }
 
-/* Prevent text selection on interactive elements */
-button, .tab-btn, .qty-btn, .payment-option, .cart-cta-btn, .confirm-btn, .secondary-btn, .checkout-cta-btn {
+button, .tab-btn, .qty-btn, .payment-option, .cart-cta-btn, .confirm-btn, .secondary-btn, .checkout-cta-btn, .back-btn, .modal-close, .cart-item-qty-btn, .admin-tab, .action-btn, .refresh-btn {
     user-select: none;
     -webkit-user-select: none;
-}
-
-/* Touch Action Optimization */
-button, .qty-btn, .tab-btn, .cart-cta-btn, .confirm-btn, .secondary-btn, .checkout-cta-btn, .back-btn, .modal-close, .cart-item-qty-btn {
     touch-action: manipulation;
 }
 
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
-/* Safe Area for Notch Devices */
 @supports (padding-top: env(safe-area-inset-top)) {
-    .app-header {
-        padding-top: calc(16px + env(safe-area-inset-top));
-    }
-    
-    .floating-cart {
-        padding-bottom: calc(14px + env(safe-area-inset-bottom));
-    }
-    
-    .checkout-footer {
-        padding-bottom: calc(24px + env(safe-area-inset-bottom));
-    }
-    
-    .modal-footer {
-        padding-bottom: calc(24px + env(safe-area-inset-bottom));
-    }
+    .app-header { padding-top: calc(16px + env(safe-area-inset-top)); }
+    .floating-cart { padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .checkout-footer { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+    .modal-footer { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
 }
